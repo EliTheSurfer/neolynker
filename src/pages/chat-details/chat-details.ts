@@ -99,6 +99,7 @@ export class ChatDetailsPage  implements AfterViewChecked{
    */
   sendMessage(){
 
+    document.getElementById('chat-textarea').focus(); // The keyboard remains open        
     this.messageToSend.setDate(new Date().toLocaleString());
     this.messageToSend.setMessage(this.textToPublish);
     this.messageToSend.setEnvoyeurId(this.sender.id);
@@ -122,6 +123,10 @@ export class ChatDetailsPage  implements AfterViewChecked{
     this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
   } 
     
+  /**
+   * faire un focus sur une zone de texte pour avoir le clavier qui s'affiche
+   * @param input 
+   */
   focusInput(input) {
     input.setFocus();
   }

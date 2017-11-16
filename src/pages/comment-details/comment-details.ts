@@ -14,12 +14,17 @@ import { FirebaseListObservable, AngularFire } from 'angularfire2';
   selector: 'page-comment-details',
   templateUrl: 'comment-details.html',
 })
+
+
+
 export class CommentDetailsPage {
 
   //Le post que l'on veut commenter
   clickedPost : any;
   //La liste des commentaires du post
-  currentCommentList : FirebaseListObservable<any[]>;;
+  currentCommentList : FirebaseListObservable<any[]>;
+  //Le commentaire a publier 
+  commentToPublish : string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public af: AngularFire) {
     //Recuperation des informations du post
@@ -33,4 +38,27 @@ export class CommentDetailsPage {
     console.log('ionViewDidLoad CommentDetailsPage');
   }
 
+  /**
+   * fonction qui permet de publier un commentaire
+   */
+  publishComment(){
+    let commentToPublish = new comment();
+    commentToPublish.text = this.commentToPublish;
+    commentToPublish.displayName =  "Elimane Sall"
+    commentToPublish.photoDeProfil = "https://firebasestorage.googleapis.com/v0/b/neolynker.appspot.com/o/photo%20d%20identite%20formatee.jpg?alt=media&token=2321fa9d-0aab-4dad-87bd-26099474c087";
+    commentToPublish.date = new Date().toLocaleDateString();
+    this.currentCommentList.push(commentToPublish);
+    this.commentToPublish = "";
+  }
+
+}
+
+/**
+ * Objet Commentaire
+ */
+class comment{
+  displayName : string;
+  text : any;
+  date : any;
+  photoDeProfil : string; 
 }

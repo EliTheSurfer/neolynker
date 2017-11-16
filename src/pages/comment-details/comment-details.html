@@ -34,10 +34,32 @@
       
   <ion-item *ngFor="let comment of  currentCommentList  | async"  style="    padding-left: 20px;padding-right: 40px;">
       <ion-thumbnail item-left>
-        <img src={{comment.photoDeProfil}} style="border-radius: 50%;">
+        <img src={{comment.photoDeProfil}} style="border-radius: 50%; width : 50px; height : 50px ">
       </ion-thumbnail>
       <ion-note>{{comment.displayName}}</ion-note>
       <p style="color : black ">{{comment.text}}</p>
   </ion-item>
 
 </ion-content>
+
+<ion-footer>
+      <ion-toolbar>
+        <ion-textarea   id="chat-textarea"
+          #chatTextarea
+          autoresize="100"
+          placeholder="commentaire..."
+          autofocus
+          spellcheck="on" 
+          autocomplete="true" 
+          [(ngModel)]="commentToPublish" 
+          style="border-radius: 7px; background-color: white;
+          border: solid;
+          border-color: cornflowerblue;">
+        </ion-textarea>
+        <ion-buttons end>
+          <button (click)="publishComment();" [disabled]="!commentToPublish" style="border-radius:5px">
+              <ion-icon name="md-send" style="font-size : x-large; color : cornflowerblue; "></ion-icon>
+          </button>
+      </ion-buttons>
+      </ion-toolbar>
+</ion-footer>
