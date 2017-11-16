@@ -49,12 +49,7 @@
                                          <ion-note *ngIf="message.recepteurId === receiver.id" [ngStyle]="{'color':message.etat === 'envoyé' ? 'blue' : 'green' }" >. {{message.etat}}</ion-note>
                                     </div>
                                     
-                                    <a class="item item-icon-right" style="text-align: end; color : green" *ngIf="message.etat === 'lu' && message.recepteurId === receiver.id">
-                                        <ion-icon  name="ios-done-all" ></ion-icon>                                    
-                                    </a>
-                                    <a class="item item-icon-right" style="text-align: end;" *ngIf="message.etat === 'envoyé' && message.recepteurId === receiver.id">
-                                        <ion-icon  name="ios-checkmark" ></ion-icon>                                    
-                                    </a>
+                                   
                                     
                             </ion-col>
         
