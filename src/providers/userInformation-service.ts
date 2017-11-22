@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class userInformationService {
+
     profile : FirebaseListObservable<any[]>;
     schoolList : FirebaseListObservable<any[]>;
     workList : FirebaseListObservable<any[]>;
@@ -15,6 +16,16 @@ export class userInformationService {
     userLogin : any;
     userId : string;
     authState: any = null;
+
+    //Information de l'utilisateur connecté
+    competences : string;
+    email : string;
+    nom : string;
+    photoDeProfil : string;
+    prenoms : string;
+    telephone : string;
+    tribu : string;
+    id : string;
     
     
     constructor(public afAuth: AngularFireAuth, private app: App, private af: AngularFire)  {
@@ -26,7 +37,43 @@ export class userInformationService {
   
     
       this.userReference = af.database.list('/consultants/'+this.userId); 
-      
+
+        //getUsersInfo
+
+        
+
+
+        this.userReference.subscribe(snapshots=>{
+        snapshots.forEach(snapshot => {
+          //console.log(snapshot.$key +" :  "+ snapshot.$value);
+          switch(snapshot.$key){
+            case "competences" : { this.competences = snapshot.$value ;console.log("coucou" + this.competences);break;}
+            case 'email' : { this.email = snapshot.$value ; console.log(this.email);}
+            case 'id' : { this.id = snapshot.$value ;break;}
+            case 'nom' : { this.nom = snapshot.$value  ;break;}
+            case 'photoDeProfil' : { this.photoDeProfil = snapshot.$value ;console.log(this.photoDeProfil);break;}
+            case 'prenoms' : { this.prenoms = snapshot.$value ;break;}
+            case 'telephone' : { this.telephone = snapshot.$value ;break;}
+            case 'tribu' : { this.tribu = snapshot.$value ;break;}    
+          }
+  
+          });
+        });
+  
+        console.log("competences---- : " + this.competences);
+        console.log("id -----: " + this.id);
+        console.log("email ---- : " + this.email);
+        console.log("nom : " + this.nom);
+        console.log("photoDeProfil : " + this.photoDeProfil);
+        console.log("prenoms : " + this.prenoms);
+        console.log("telephone : " + this.telephone);
+        console.log("tribu : " + this.tribu);
+        
+        
+        
+        
+        
+
       this.schoolList = af.database.list('/consultants/'+this.userId+'/etudes', {
         query: {
           orderByChild: 'date'
@@ -50,6 +97,8 @@ export class userInformationService {
         instance.hobbies.push(snapshot.val());
       });
         
+ 
+  
     
     }
 }

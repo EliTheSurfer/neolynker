@@ -21,6 +21,7 @@ export class LoginPage implements OnInit{
     this.element.nativeElement
     
     this.etatDeConnexion = "non connecté";
+    
   }
 
 
@@ -152,5 +153,8 @@ export class LoginPage implements OnInit{
  public goSignUp() {
    	this.navCtrl.push(SignUpPage);
   }
+
+
+
 
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Firebase } from 'ionic-native';
 import { FirebaseListObservable, AngularFire } from 'angularfire2';
+import { userInformationService } from '../../providers/userInformation-service';
 
 /**
  * Generated class for the CommentDetailsPage page.
@@ -26,7 +27,7 @@ export class CommentDetailsPage {
   //Le commentaire a publier 
   commentToPublish : string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public af: AngularFire) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public af: AngularFire,public currentUser : userInformationService ) {
     //Recuperation des informations du post
     this.clickedPost = navParams.get("post");
     //indexation des commentaires
@@ -44,8 +45,8 @@ export class CommentDetailsPage {
   publishComment(){
     let commentToPublish = new comment();
     commentToPublish.text = this.commentToPublish;
-    commentToPublish.displayName =  "Elimane Sall"
-    commentToPublish.photoDeProfil = "https://firebasestorage.googleapis.com/v0/b/neolynker.appspot.com/o/photo%20d%20identite%20formatee.jpg?alt=media&token=2321fa9d-0aab-4dad-87bd-26099474c087";
+    commentToPublish.displayName =  (this.currentUser.prenoms + " " +this.currentUser.nom);
+    commentToPublish.photoDeProfil = this.currentUser.photoDeProfil ;  
     commentToPublish.date = new Date().toLocaleDateString();
     this.currentCommentList.push(commentToPublish);
     this.commentToPublish = "";
