@@ -29,7 +29,7 @@
     </ion-card-content>
 
   </ion-card>
-
+  <hr>
       
   <ion-item *ngFor="let comment of  currentCommentList  | async"  style="    padding-left: 20px;padding-right: 40px;">
       <ion-thumbnail item-left>
@@ -38,6 +38,7 @@
       <ion-note>{{comment.displayName}}</ion-note>
       <p style="color : black ">{{comment.text}}</p>
   </ion-item>
+
 
 </ion-content>
 
