@@ -94,6 +94,9 @@ export class PostDetailsPage {
     
   }
 
+  /**
+   * fonction qui permet de garder le clavier  actif
+   */
   focusInput(input) {
     input.setFocus();
   }

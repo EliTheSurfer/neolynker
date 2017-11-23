@@ -11,6 +11,7 @@ import * as firebase from 'firebase';
 
 import { LoginPage } from '../login/login';
 import { CommentDetailsPage } from '../comment-details/comment-details';
+import { List } from 'ionic-angular/components/list/list';
 
 @Component({
   selector: 'page-home',
@@ -49,7 +50,18 @@ export class JobsPage {
     this.items = af.database.list('items');
     
     let ref = firebase.database().ref('/consultants/'+this.userId);
-    
+
+    this.updateCommentNumber("-KzZ8TaFNeq655QIK4id");
+
+    let angularFirePostReference = this.af.database.list('/timeline/');   
+    angularFirePostReference.subscribe(snapshots=>{
+      snapshots.forEach(snapshot => {
+        console.log(snapshot.$key);
+          this.updateCommentNumber(snapshot.$key);
+        });
+      });
+
+    //this.getCommentKey().forEach(commentKey => console.log("La clé du commentaire est : "+ commentKey));
 
     this.currentUserInformations = af.database.object('/consultants/'+this.userId,  { preserveSnapshot: true });
     console.log(this.currentUserInformations.subscribe(snapshot => {    console.log(snapshot.values)
@@ -155,6 +167,39 @@ export class JobsPage {
     } );
   }
   
+  /**
+   * Fonction qui permet de mettre a jour le nombre de commentaires d'un post
+   * La fonction prend en parametre l'identifiant du commentaire dans la base de données
+   * @param commentKey : string 
+   */
+  updateCommentNumber( commentKey : string){
+    let instance = this;
+    let postRef = firebase.database().ref('timeline');
+
+    postRef.child(commentKey+"/commentairesList").on("value", function(snapshot) {
+      console.log("There are "+snapshot.numChildren()+" comments");
+      let likerRef =instance.af.database.list('/timeline/');
+      likerRef.update(commentKey,{commentaire : snapshot.numChildren()});
+
+    })
+  }
+
+
+  /**
+   * Fonction qui retourne la liste des id de commentaires
+   */
+  getCommentKey() : string[]{
+    let commentKeyList : string[];
+    let angularFirePostReference = this.af.database.list('/timeline/');   
+    angularFirePostReference.subscribe(snapshots=>{
+      snapshots.forEach(snapshot => {
+        console.log(snapshot.$key);
+        commentKeyList.push(snapshot.$key);
+        
+        });
+      });
+    return commentKeyList;
+  }
 
 
 

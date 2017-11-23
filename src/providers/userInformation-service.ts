@@ -39,10 +39,6 @@ export class userInformationService {
       this.userReference = af.database.list('/consultants/'+this.userId); 
 
         //getUsersInfo
-
-        
-
-
         this.userReference.subscribe(snapshots=>{
         snapshots.forEach(snapshot => {
           //console.log(snapshot.$key +" :  "+ snapshot.$value);
@@ -59,19 +55,6 @@ export class userInformationService {
   
           });
         });
-  
-        console.log("competences---- : " + this.competences);
-        console.log("id -----: " + this.id);
-        console.log("email ---- : " + this.email);
-        console.log("nom : " + this.nom);
-        console.log("photoDeProfil : " + this.photoDeProfil);
-        console.log("prenoms : " + this.prenoms);
-        console.log("telephone : " + this.telephone);
-        console.log("tribu : " + this.tribu);
-        
-        
-        
-        
         
 
       this.schoolList = af.database.list('/consultants/'+this.userId+'/etudes', {
