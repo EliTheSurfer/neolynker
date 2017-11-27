@@ -4,6 +4,7 @@ import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFire,AngularFireModule,AuthProviders, AuthMethods, FirebaseListObservable } from 'angularfire2';
 import * as firebase from 'firebase';
+import { userInformationService } from '../../providers/userInformation-service';
 
 
 
@@ -24,23 +25,29 @@ export class ProfilePage {
   authState: any = null;
   
   
-  constructor(public navCtrl: NavController, public afAuth: AngularFireAuth, private app: App, private af: AngularFire)  {
+  constructor(public navCtrl: NavController, public afAuth: AngularFireAuth, private app: App, private af: AngularFire, public currentUserProfile : userInformationService)  {
+    
     this.profile = af.database.list('/consultants'); 
     this.userLogin = firebase.auth().currentUser;
 
     //Formattage de l'id de l'utilisateur courant
     this.userId = this.userLogin.email.split("@")[0].replace(".","");
 
+    //On recupere le parcours scolaire
     this.schoolList = af.database.list('/consultants/'+this.userId+'/etudes', {
       query: {
         orderByChild: 'date'
       }
     }); 
+
+    //On recupere les experiences
     this.workList = af.database.list('/consultants/'+this.userId+'/experiences', {
       query: {
         orderByChild: 'date'
       }
     }); 
+
+    //On recupere les competences 
     this.skillList = af.database.list('/consultants/'+this.userId+'/competences'); 
 
     
