@@ -61,8 +61,6 @@ export class JobsPage {
         });
       });
 
-    //this.getCommentKey().forEach(commentKey => console.log("La clé du commentaire est : "+ commentKey));
-
     this.currentUserInformations = af.database.object('/consultants/'+this.userId,  { preserveSnapshot: true });
     console.log(this.currentUserInformations.subscribe(snapshot => {    console.log(snapshot.values)
     }));
@@ -94,6 +92,9 @@ export class JobsPage {
 
   }
 
+  /**
+   * Aller dans le détail d'un post
+   */
   goToPost() {
     this.navCtrl.push(PostDetailsPage,{
       writer : this.currentUserInformations

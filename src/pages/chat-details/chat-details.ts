@@ -3,7 +3,10 @@ import { chatMessageModel } from './../../models/chatMessageModel';
 import { FirebaseListObservable, AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { Component, ViewChild, ElementRef, AfterViewChecked, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
+
 import * as firebase from 'firebase';
+
 
 
 /**
@@ -39,8 +42,9 @@ export class ChatDetailsPage  implements AfterViewChecked{
 
   
 
-  constructor(public navCtrl: NavController, private currentUserInformation : userInformationService,public af: AngularFire, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, private keyboard: Keyboard,private currentUserInformation : userInformationService,public af: AngularFire, public navParams: NavParams) {
 
+    keyboard.show();
     //On crée un modele de message à envoyer
     this.messageToSend = new chatMessageModel();
 
